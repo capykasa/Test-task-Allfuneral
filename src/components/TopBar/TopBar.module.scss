@@ -1,0 +1,30 @@
+.top-bar {
+    padding: 20px 6px;
+    background-color: var(--dark-grey);
+    color: var(--white);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+
+    &__header,
+    &__user-gui {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    &__user-gui {
+        position: relative;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 1px;
+            background-color: var(--dark-grey--hover);
+        }
+    }
+}
