@@ -32,6 +32,7 @@
         &-item {
             display: grid;
             grid-template-columns: 160px 1fr;
+            gap: 12px;
 
             &-name {
                 font-size: 13px;
@@ -41,6 +42,10 @@
             &-text {
                 font-size: 14px;
                 color: var(--black--opacity-08);
+            }
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr 2fr;
             }
         }
     }
@@ -77,6 +82,17 @@
             position: absolute;
             top: 8px;
             right: 8px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        &__list {
+            gap: 14px;
+        }
+
+        &__item {
+            width: 112px;
+            height: 90px;
         }
     }
 }

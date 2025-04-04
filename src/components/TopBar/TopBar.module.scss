@@ -27,4 +27,22 @@
             background-color: var(--dark-grey--hover);
         }
     }
+
+    @media (max-width: 992px) {
+        grid-area: span 2 / span 2;
+        padding: 6px 20px;
+        flex-direction: row;
+
+        &__header,
+        &__user-gui {
+            flex-direction: row;
+        }
+
+        &__user-gui {
+            &::before {
+                width: 1px;
+                height: 50%;
+            }
+        }
+    }
 }
