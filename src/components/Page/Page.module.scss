@@ -1,4 +1,46 @@
 .page {
     padding: 0 86px;
     margin: 40px auto;
+    max-width: calc(640px + (86px * 2));
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    &__header {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        & .back-btn {
+            position: absolute;
+            left: -58px;
+        }
+
+        & .delete-btn {
+            & svg,
+            & path {
+                stroke: var(--red);
+            }
+        }
+
+        &-title {
+            font-weight: 500;
+            font-size: 28px;
+            line-height: 40px;
+            letter-spacing: 0.25px;
+        }
+
+        &-buttons {
+            margin-left: auto;
+            display: flex;
+            gap: 4px;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 }

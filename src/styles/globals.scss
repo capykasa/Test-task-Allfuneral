@@ -15,13 +15,13 @@
         margin: 0;
         background-color: var(--light-grey);
         font-family: 'Poppins', serif;
+        font-size: 14px;
         color: var(--black--opacity-08);
     }
 
-    h1 {
-        font-weight: 500;
-        font-size: 28px;
-        line-height: 120%;
+    h1,
+    h2,
+    h3 {
         margin: 0;
     }
 
@@ -60,11 +60,12 @@
             left: 12px;
             width: 16px;
             height: 16px;
+        }
 
-            & path {
-                stroke: var(--white);
-                transition-duration: var(--transition-duration);
-            }
+        & svg,
+        & path {
+            stroke: var(--white);
+            transition-duration: var(--transition-duration);
         }
 
         &:hover {
@@ -78,33 +79,8 @@
             border-color: var(--dark-grey--active);
         }
 
-        &.btn--outline {
-            background-color: transparent;
-            color: var(--dark-grey);
-            border-color: var(--meduim-grey);
-
-            & svg path {
-                stroke: var(--dark-grey);
-            }
-
-            &:hover {
-                border-color: var(--outline-button-border--hovered);
-                color: var(--outline-button-font--hovered);
-
-                & svg path {
-                    stroke: var(--outline-button-font--hovered);
-                }
-            }
-
-            &:active,
-            &--active {
-                border-color: var(--outline-button-border--active);
-                color: var(--outline-button-border--active);
-
-                & svg path {
-                    stroke: var(--outline-button-border--active);
-                }
-            }
+        &.btn--small {
+            padding: 4px 12px 4px 36px;
         }
 
         &.btn--icon {
@@ -115,6 +91,74 @@
                 width: 20px;
                 height: 20px;
             }
+
+            &.btn--small {
+                padding: 6px;
+
+                & svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+    }
+
+    .btn--outline {
+        background-color: transparent;
+        color: var(--dark-grey);
+        border-color: var(--outline-button-border);
+
+        & svg,
+        & path {
+            stroke: var(--dark-grey);
+        }
+
+        &:hover {
+            background-color: transparent;
+            color: var(--outline-button-font--hovered);
+            border-color: var(--outline-button-border--hovered);
+
+            & svg,
+            & path {
+                stroke: var(--outline-button-font--hovered);
+            }
+        }
+
+        &:active,
+        &--active {
+            background-color: transparent;
+            color: var(--outline-button-border--active);
+            border-color: var(--outline-button-border--active);
+
+            & svg,
+            & path {
+                stroke: var(--outline-button-border--active);
+            }
+        }
+    }
+
+    .btn--transparent {
+        background-color: transparent;
+        color: var(--dark-grey);
+        border-color: transparent;
+        border-radius: 50%;
+
+        & svg,
+        & path {
+            stroke: var(--dark-grey);
+        }
+
+        &:hover {
+            background-color: var(--transparent-button-background--hovered);
+            color: var(--dark-grey);
+            border-color: transparent;
+        }
+
+        &:active,
+        &--active {
+            background-color: var(--transparent-button-background--active);
+            color: var(--dark-grey);
+            border-color: transparent;
         }
     }
 }

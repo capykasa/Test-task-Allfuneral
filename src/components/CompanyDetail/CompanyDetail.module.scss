@@ -1,0 +1,82 @@
+.company-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    & > div {
+        padding: 24px;
+        background-color: var(--white);
+        border-radius: 16px;
+        box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.12);
+    }
+}
+
+.detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        line-height: 28px;
+    }
+
+    &__body {
+        line-height: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        &-item {
+            display: grid;
+            grid-template-columns: 160px 1fr;
+
+            &-name {
+                font-size: 13px;
+                color: var(--black--opacity-05);
+            }
+
+            &-text {
+                font-size: 14px;
+                color: var(--black--opacity-08);
+            }
+        }
+    }
+}
+
+.detail-gallery {
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    &__item {
+        width: 144px;
+        height: 108px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        border: 2px solid transparent;
+        transition-duration: var(--transition-duration);
+
+        &:hover {
+            border: 2px solid var(--outline-button-border--active);
+        }
+
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition-duration: var(--transition-duration);
+        }
+
+        & .delete-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+    }
+}
