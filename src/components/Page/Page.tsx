@@ -1,17 +1,17 @@
 import styles from './Page.module.scss'
-import Arrow from '@/assets/icons/arrow.svg'
 import Pencil from '@/assets/icons/pencil.svg'
 import Trash from '@/assets/icons/trash.svg'
-import { CompanyList } from '../CompanyList/CompanyList'
-import { CompanyDetail } from '../CompanyDetail/CompanyDetail'
+import { useRoutes } from 'react-router-dom'
+import routes from '@/router'
+import BackButton from '../BackButton/BackButton'
 
 export const Page = () => {
+    const view = useRoutes(routes);
+    
     return (
         <div className={styles.page}>
             <div className={styles['page__header']}>
-                <button className={`${styles['back-btn']} btn btn--icon btn--transparent`}>
-                    <Arrow width={20} height={20} />
-                </button>
+                <BackButton />
                 <h2 className={styles['page__header-title']}>Organizations</h2>
                 <div className={styles['page__header-buttons']}>
                     <button className={`${styles['edit-btn']} btn btn--icon btn--transparent`}>
@@ -23,8 +23,7 @@ export const Page = () => {
                 </div>
             </div>
             <div className={styles['page__body']}>
-                <CompanyList />
-                <CompanyDetail />
+                { view }
             </div>
         </div>
     )

@@ -1,17 +1,17 @@
 import styles from './CompanyList.module.scss'
+import { CompanyItem } from '../CompanyItem/CompanyItem'
+import { TCompany } from '../types/data'
 
-export const CompanyList = () => {
+interface CompanyListProps {
+    companies: TCompany[]
+}
+
+export const CompanyList = ({ companies }: CompanyListProps) => {
     return (
         <div className={styles['company-list']}>
-            <div className={styles['company-item']}>
-                <div className={styles['company-item__header']}>
-                    <div className={styles['company-item__header-title']}>Company Name</div>
-                </div>
-                <div className={styles['company-item__body']}>
-                    <div className={styles['company-item__body-item']}>1624/2-24 / 03.12.2024</div>
-                    <div className={styles['company-item__body-item']}>Partnership</div>
-                </div>
-            </div>
+            {companies.map(company => (
+                <CompanyItem key={company.id} company={company} />
+            ))}
         </div>
     )
 }

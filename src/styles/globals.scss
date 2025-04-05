@@ -36,6 +36,11 @@
         margin: 0;
     }
 
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
     #root {
         height: 100%;
     }
