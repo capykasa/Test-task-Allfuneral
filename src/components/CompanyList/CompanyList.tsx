@@ -1,6 +1,6 @@
 import styles from './CompanyList.module.scss'
 import { CompanyItem } from '../CompanyItem/CompanyItem'
-import { TCompany } from '../types/data'
+import { TCompany } from '../../types/data'
 
 interface CompanyListProps {
     companies: TCompany[]

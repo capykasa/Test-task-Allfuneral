@@ -1,4 +1,8 @@
+import { useContext, useEffect, useState } from 'react'
+import apiContext from '@/utility/context/api'
 import { CompanyList } from '@/components/CompanyList/CompanyList'
+import { TCompany } from '@/types/data'
+import axios from 'axios'
 
 const Companies = () => {
     const companies = [

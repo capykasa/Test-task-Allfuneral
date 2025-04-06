@@ -1,6 +1,6 @@
 import styles from './CompanyItem.module.scss'
 import { Link } from 'react-router-dom'
-import { TCompany } from '../types/data'
+import { TCompany } from '../../types/data'
 
 interface CompanyItemProps {
     company: TCompany

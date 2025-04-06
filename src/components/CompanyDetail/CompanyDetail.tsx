@@ -2,7 +2,7 @@ import styles from './CompanyDetail.module.scss'
 import Pencil from '@/assets/icons/pencil.svg'
 import AddPhoto from '@/assets/icons/add-photo.svg'
 import Trash from '@/assets/icons/trash.svg'
-import { TCompany, TContact } from '../types/data'
+import { TCompany, TContact } from '../../types/data'
 
 interface CompanyDetailProps {
     company: TCompany
