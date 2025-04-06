@@ -1,6 +1,6 @@
+import { useContext } from 'react'
+import apiContext from '@/utility/context/api'
 import { CompanyDetail } from '@/components/CompanyDetail/CompanyDetail'
-import apiContext from '@/utility/context/api';
-import { useContext } from 'react';
 
 const Company = () => {
     const company = {

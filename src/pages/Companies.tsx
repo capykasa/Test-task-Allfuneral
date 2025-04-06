@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react'
 import apiContext from '@/utility/context/api'
 import { CompanyList } from '@/components/CompanyList/CompanyList'
 import { TCompany } from '@/types/data'
-import axios from 'axios'
 
 const Companies = () => {
     const companies = [
@@ -30,6 +29,24 @@ const Companies = () => {
             updatedAt: '2020-11-23T09:30:00Z',
         },
     ]
+
+    const api = useContext(apiContext)
+    const [res, setCompanies] = useState<TCompany>(null)
+
+    // useEffect(() => {
+    //     // api.companies.get().then(data => setCompanies(data))
+    //     let res = axios({
+    //         url: 'https://test-task-api.allfuneral.com/auth?user=USERNAME',
+    //         method: 'get',
+    //         headers: {
+    //             'Cache-Control': 'no-cache',
+    //             'Content-Type': 'application/x-www-form-urlencoded',
+    //         },
+    //     }).then(result => console.log(result))
+    // }, [])
+    
+    // let result = api.companies.get()
+    // console.log(result)
 
     return <CompanyList companies={companies} />
 }

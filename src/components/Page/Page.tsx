@@ -6,8 +6,8 @@ import routes from '@/router'
 import BackButton from '../BackButton/BackButton'
 
 export const Page = () => {
-    const view = useRoutes(routes);
-    
+    const view = useRoutes(routes)
+
     return (
         <div className={styles.page}>
             <div className={styles['page__header']}>
@@ -22,9 +22,7 @@ export const Page = () => {
                     </button>
                 </div>
             </div>
-            <div className={styles['page__body']}>
-                { view }
-            </div>
+            <div className={styles['page__body']}>{view}</div>
         </div>
     )
 }
