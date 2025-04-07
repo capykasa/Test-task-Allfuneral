@@ -12,7 +12,7 @@ if (!root) {
     throw new Error('root not fount')
 }
 
-const http = createHttpPlugin('https://jsonplaceholder.typicode.com/')
+const http = createHttpPlugin('https://test-task-api.allfuneral.com/')
 const api = createApi(http)
 
 const container = createRoot(root)

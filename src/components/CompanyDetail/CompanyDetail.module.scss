@@ -18,9 +18,13 @@
 
     &__header {
         display: flex;
-        justify-content: space-between;
+        gap: 12px;
         font-weight: 700;
         line-height: 28px;
+
+        &-title {
+            margin-right: auto;
+        }
     }
 
     &__body {
@@ -42,6 +46,11 @@
             &-text {
                 font-size: 14px;
                 color: var(--black--opacity-08);
+
+                &--separator {
+                    color: var(--black--opacity-03);
+                    margin: 0 12px;
+                }
             }
 
             @media (max-width: 768px) {

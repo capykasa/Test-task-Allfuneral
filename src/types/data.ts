@@ -1,13 +1,15 @@
+import { refformattingContactData, refformattingInfoData } from "@/utility/reformattingDataFields"
+
 export type TCompanyContract = {
     no: string
-    issue_date: string
+    issue_date: Date
 }
 
 export type TCompanyPhoto = {
     name: string
     filepath: string
     thumbpath: string
-    createdAt: string
+    createdAt: Date
 }
 
 export type TCompany = {
@@ -20,16 +22,23 @@ export type TCompany = {
     type: string[]
     status: string
     photos: TCompanyPhoto[]
-    createdAt: string
-    updatedAt: string
+    createdAt: Date
+    updatedAt: Date
 }
 
 export type TContact = {
     id: string
     lastname: string
     firstname: string
-    phone: number
+    phone: string
     email: string
-    createdAt: string
-    updatedAt: string
+    createdAt: Date
+    updatedAt: Date
 }
+
+export type TContactForm = {
+    person: string
+} & TContact
+
+
+export type RefformattingData = typeof refformattingInfoData | typeof refformattingContactData

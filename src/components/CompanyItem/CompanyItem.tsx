@@ -14,7 +14,9 @@ export const CompanyItem = ({ company }: CompanyItemProps) => {
             </div>
             <div className={styles['company-item__body']}>
                 <div className={styles['company-item__body-item']}>
-                    {company.contract.no} / {company.contract.issue_date}
+                    {company.contract.no}
+                    <span className={styles['company-item__body-item--separator']}>/</span>
+                    {company.contract.issue_date.toLocaleDateString()}
                 </div>
                 <div className={styles['company-item__body-item']}>{company.businessEntity}</div>
             </div>
