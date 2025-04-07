@@ -3,7 +3,10 @@ import { TCompany } from '@/types/data'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { EditButton } from '../EditButton/EditButton'
-import { refformattingInfoData } from '@/utility/reformattingDataFields'
+import { refformattingInfoData, reformattingCompanyTypesToView } from '@/utility/reformattingDataFields'
+import { BUSINESS_ENTITIES } from '@/consts/BusinessEntities'
+import { Select } from '../Select/Select'
+import { COMPANY_TYPES } from '@/consts/CompanyTypes'
 
 interface InfoProps {
     company: TCompany
@@ -12,12 +15,16 @@ interface InfoProps {
 export const Info = ({ company }: InfoProps) => {
     const [isEdit, setIsEdit] = useState(false)
     const {
+        control,
         register,
-        formState: { errors },
         handleSubmit,
+        watch
     } = useForm<TCompany>({
         defaultValues: company,
     })
+    const formValues = watch()
+    const companyTypesValueView = reformattingCompanyTypesToView(formValues.type)
+    const companyTypesView = reformattingCompanyTypesToView(COMPANY_TYPES)
 
     return (
         <div className={styles['detail-info']}>
@@ -59,9 +66,7 @@ export const Info = ({ company }: InfoProps) => {
                     {!isEdit ? (
                         <span className={styles['detail-info__body-item-text']}>{company.businessEntity}</span>
                     ) : (
-                        <div className="form-item__wrapper">
-                            <input type="text" {...register('businessEntity')} />
-                        </div>
+                        <Select name="businessEntity" control={control} formValue={formValues.businessEntity} options={BUSINESS_ENTITIES} />
                     )}
                 </div>
                 <div className={`${styles['detail-info__body-item']} form-item`}>
@@ -69,7 +74,7 @@ export const Info = ({ company }: InfoProps) => {
                     {!isEdit ? (
                         <span className={styles['detail-info__body-item-text']}>{company.type.join(', ')}</span>
                     ) : (
-                        <input type="text" {...register('type')} />
+                        <Select name="type" control={control} formValue={companyTypesValueView} options={companyTypesView} isMulti />
                     )}
                 </div>
             </div>

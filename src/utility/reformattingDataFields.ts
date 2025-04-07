@@ -1,4 +1,5 @@
 import { TCompany, TContact, TContactForm } from '@/types/data'
+import { it } from 'node:test'
 
 export function splitPersonName(person: string): string[] {
     const personArr = person.trim().split(' ')
@@ -14,6 +15,25 @@ export function reformattingStringToPhone(phone: string): string {
     return `+${phoneArr.join(' ')}`
 }
 
+export function filterCheckboxes(array: string[], newItem: string): string[] {
+    let newItemIndex = array.indexOf(newItem)
+
+    newItemIndex >= 0 
+        ? array.splice(newItemIndex, 1) 
+        : array.push(newItem)
+
+    return array
+}
+
+export function reformattingCompanyTypesToView(array: string[]): string[] {
+    let reformattingArray = array.map(item => {
+        item = item[0].toUpperCase() + item.slice(1)
+        return item.split('_').join(' ')
+    })
+
+    return reformattingArray
+}
+
 export function reformattingPhoneToString(phone: string): string {
     const phoneArr = phone.split(' ')
     phoneArr.shift()
@@ -22,7 +42,6 @@ export function reformattingPhoneToString(phone: string): string {
 }
 
 export function refformattingContactData(data: TContactForm): TContact {
-    console.log('1')
     if (data.person) {
         let personArr = splitPersonName(data.person)
 
@@ -38,7 +57,6 @@ export function refformattingContactData(data: TContactForm): TContact {
 }
 
 export function refformattingInfoData(data: TCompany): TCompany {
-    console.log('2')
 
     return data
 }

@@ -232,11 +232,21 @@
                 width: 100%;
                 height: 40px;
                 padding: 10px 12px;
-                outline: none;
+                outline: 1px solid transparent;
                 border: 1px solid var(--outline-button-border);
                 border-radius: 8px;
                 font-size: 14px;
                 line-height: 24px;
+                transition-duration: var(--transition-duration);
+
+                &:hover {
+                    border-color: var(--outline-button-border--hovered);
+                }
+
+                &:focus {
+                    outline: 1px solid var(--input--active);
+                    border-color: var(--input--active);
+                }
             }
 
             & input[type='date'] {
