@@ -26,6 +26,8 @@ export const Info = ({ company }: InfoProps) => {
     const companyTypesValueView = reformattingCompanyTypesToView(formValues.type)
     const companyTypesView = reformattingCompanyTypesToView(COMPANY_TYPES)
 
+    const cotractIssueDate = new Date(company.contract.issue_date)
+
     return (
         <div className={styles['detail-info']}>
             <div className={styles['detail-info__header']}>
@@ -44,7 +46,7 @@ export const Info = ({ company }: InfoProps) => {
                         <span className={styles['detail-info__body-item-text']}>
                             {company.contract.no}
                             <span className={styles['detail-info__body-item-text--separator']}>/</span>
-                            {company.contract.issue_date.toLocaleDateString()}
+                            {cotractIssueDate.toLocaleDateString()}
                         </span>
                     ) : (
                         <div className="form-item__wrapper">
@@ -53,7 +55,7 @@ export const Info = ({ company }: InfoProps) => {
                             <input
                                 id="date"
                                 type="date"
-                                defaultValue={company.contract.issue_date.toLocaleDateString('en-CA')}
+                                defaultValue={cotractIssueDate.toLocaleDateString('en-CA')}
                                 {...register('contract.issue_date', {
                                     valueAsDate: true,
                                 })}

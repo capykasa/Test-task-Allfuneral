@@ -3,17 +3,26 @@ import { AxiosInstance } from 'axios'
 
 function createCompaniesApi(http: AxiosInstance) {
     return {
-        async all() {
-            return (await http.get<TCompany[]>('companies')).data
+        async all(token: string) {
+            return await http.get<TCompany>(`companies/${12}`, {
+                headers: {
+                    Authorization: token,
+                },
+            })
         },
-        async get() {
-            return (await http.get<TCompany>(`companies/${12}`)).data
+        async update(token: string, id: string) {
+            return await http.patch<TCompany>(`companies/${id}`, {
+                headers: {
+                    Authorization: token,
+                },
+            })
         },
-        async update(id: number) {
-            return (await http.patch<TCompany>(`companies/${id}`)).data
-        },
-        async delete(id: number) {
-            return (await http.delete<TCompany>(`companies/${id}`)).data
+        async delete(token: string, id: string) {
+            return await http.delete<TCompany>(`companies/${id}`, {
+                headers: {
+                    Authorization: token,
+                },
+            })
         },
     }
 }

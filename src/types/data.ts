@@ -2,28 +2,28 @@ import { refformattingContactData, refformattingInfoData } from "@/utility/refor
 
 export type TCompanyContract = {
     no: string
-    issue_date: Date
+    issue_date: string
 }
 
 export type TCompanyPhoto = {
     name: string
     filepath: string
     thumbpath: string
-    createdAt: Date
+    createdAt: string
 }
 
 export type TCompany = {
-    id: number
+    id: string
     name: string
     shortName: string
     businessEntity: string
-    contactId: number
+    contactId: string
     contract: TCompanyContract
     type: string[]
     status: string
     photos: TCompanyPhoto[]
-    createdAt: Date
-    updatedAt: Date
+    createdAt: string
+    updatedAt: string
 }
 
 export type TContact = {
@@ -32,8 +32,8 @@ export type TContact = {
     firstname: string
     phone: string
     email: string
-    createdAt: Date
-    updatedAt: Date
+    createdAt: string
+    updatedAt: string
 }
 
 export type TContactForm = {

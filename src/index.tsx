@@ -4,7 +4,8 @@ import { App } from './components/App/App'
 import { BrowserRouter } from 'react-router-dom'
 import createHttpPlugin from './plugins/http'
 import createApi from './api'
-import apiContext from './utility/context/api'
+import Store from './store'
+import { createContext } from 'react'
 
 const root = document.getElementById('root')
 
@@ -14,12 +15,17 @@ if (!root) {
 
 const http = createHttpPlugin('https://test-task-api.allfuneral.com/')
 const api = createApi(http)
+export const store = new Store(api)
+
+export const StoreContext = createContext<Store>(store)
 
 const container = createRoot(root)
 container.render(
     <BrowserRouter>
-        <apiContext.Provider value={api}>
+        <StoreContext.Provider
+            value={store}
+        >
             {<App />}
-        </apiContext.Provider>
+        </StoreContext.Provider>
     </BrowserRouter>
 )

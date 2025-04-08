@@ -7,18 +7,20 @@ interface CompanyItemProps {
 }
 
 export const CompanyItem = ({ company }: CompanyItemProps) => {
+    const cotractIssueDate = new Date(company.contract.issue_date)
+
     return (
-        <Link to={`/company/${company.id}`} className={styles['company-item']}>
+        <Link to={`/company/${company?.id}`} className={styles['company-item']}>
             <div className={styles['company-item__header']}>
-                <div className={styles['company-item__header-title']}>{company.name}</div>
+                <div className={styles['company-item__header-title']}>{company?.name}</div>
             </div>
             <div className={styles['company-item__body']}>
                 <div className={styles['company-item__body-item']}>
-                    {company.contract.no}
+                    {company?.contract.no}
                     <span className={styles['company-item__body-item--separator']}>/</span>
-                    {company.contract.issue_date.toLocaleDateString()}
+                    {cotractIssueDate.toLocaleDateString()}
                 </div>
-                <div className={styles['company-item__body-item']}>{company.businessEntity}</div>
+                <div className={styles['company-item__body-item']}>{company?.businessEntity}</div>
             </div>
         </Link>
     )

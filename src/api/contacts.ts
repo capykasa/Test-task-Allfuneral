@@ -3,11 +3,19 @@ import { AxiosInstance } from 'axios'
 
 function createContactsApi(http: AxiosInstance) {
     return {
-        async get(id: number) {
-            return (await http.get<TContact>(`contacts/${id}`)).data
+        async get(token: string, id: string) {
+            return await http.get<TContact>(`contacts/${id}`, {
+                headers: {
+                    Authorization: token,
+                },
+            })
         },
-        async update(id: number) {
-            return (await http.patch<TContact>(`contacts/${id}`)).data
+        async update(token: string, id: string) {
+            return await http.patch<TContact>(`contacts/${id}`, {
+                headers: {
+                    Authorization: token,
+                },
+            })
         },
     }
 }
