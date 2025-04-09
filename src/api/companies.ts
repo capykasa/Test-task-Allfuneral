@@ -1,4 +1,4 @@
-import { TCompany, TContact } from '@/types/data'
+import { TCompany, TCompanyPatch, TContact } from '@/types/data'
 import { AxiosInstance } from 'axios'
 
 function createCompaniesApi(http: AxiosInstance) {
@@ -10,7 +10,7 @@ function createCompaniesApi(http: AxiosInstance) {
                 },
             })
         },
-        async update(token: string, data: TCompany) {
+        async update(token: string, data: TCompanyPatch) {
             const { id, name, shortName, businessEntity, contract, type } = data
 
             return await http.patch<TCompany>(

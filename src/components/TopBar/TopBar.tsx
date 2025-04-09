@@ -4,16 +4,18 @@ import Case from '@/assets/icons/case.svg'
 import Search from '@/assets/icons/search.svg'
 import Settings from '@/assets/icons/settings.svg'
 import Signout from '@/assets/icons/signout.svg'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export const TopBar = () => {
+    const { pathname } = useLocation()
+
     return (
         <div className={styles['top-bar']}>
             <div className={styles['top-bar__header']}>
                 <Link to={'/'}>
                     <Logo width={36} height={36} />
                 </Link>
-                <button className="btn btn--icon">
+                <button className={`btn btn--icon${!pathname.includes('/search') ? ' btn--active' : ''}`}>
                     <Case width={20} height={20} />
                 </button>
                 <button className="btn btn--icon">

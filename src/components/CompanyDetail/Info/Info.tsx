@@ -18,12 +18,7 @@ export const Info = (props: InfoProps) => {
     const [company, setCompany] = useState<TCompany>(props.company)
     const [isEdit, setIsEdit] = useState(false)
     const [pending, setPending] = useState(false)
-    const {
-        control,
-        register,
-        handleSubmit,
-        watch
-    } = useForm<TCompany>({
+    const { control, register, handleSubmit, watch } = useForm<TCompany>({
         defaultValues: company,
     })
     const formValues = watch()
@@ -33,15 +28,15 @@ export const Info = (props: InfoProps) => {
 
     const cotractIssueDate = new Date(company.contract.issue_date)
 
-    const updateInfo: SubmitHandler<TCompany> = async (data) => {
+    const updateInfo: SubmitHandler<TCompany> = async data => {
         refformattingInfoData(data)
-        
+
         setPending(true)
         try {
-            await store.api.companies.update(localStorage.getItem('token'), data)
+            await store.api.companies
+                .update(localStorage.getItem('token'), data)
                 .then(result => setCompany(result.data))
                 .catch(error => console.error(error.response.data.error))
-
         } catch (error) {
             console.error(error)
         } finally {
@@ -91,22 +86,31 @@ export const Info = (props: InfoProps) => {
                     {!isEdit ? (
                         <span className={styles['detail-info__body-item-text']}>{company.businessEntity}</span>
                     ) : (
-                        <Select name="businessEntity" control={control} formValue={formValues.businessEntity} options={BUSINESS_ENTITIES} />
+                        <Select
+                            name="businessEntity"
+                            control={control}
+                            formValue={formValues.businessEntity}
+                            options={BUSINESS_ENTITIES}
+                        />
                     )}
                 </div>
                 <div className={`${styles['detail-info__body-item']} form-item`}>
                     <span className={styles['detail-info__body-item-name']}>Company type:</span>
                     {!isEdit ? (
-                        <span className={styles['detail-info__body-item-text']}>{companyTypesValueView.join(', ')}</span>
+                        <span className={styles['detail-info__body-item-text']}>
+                            {companyTypesValueView.join(', ')}
+                        </span>
                     ) : (
-                        <Select name="type" control={control} formValue={companyTypesValueView} options={companyTypesView} isMulti />
+                        <Select
+                            name="type"
+                            control={control}
+                            formValue={companyTypesValueView}
+                            options={companyTypesView}
+                            isMulti
+                        />
                     )}
                 </div>
             </div>
         </div>
     )
 }
-function setPending(arg0: boolean) {
-    throw new Error('Function not implemented.')
-}
-

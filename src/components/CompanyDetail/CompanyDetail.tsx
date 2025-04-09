@@ -3,6 +3,7 @@ import { TCompany, TContact } from '@/types/data'
 import { Info } from './Info/Info'
 import { Contact } from './Contact/Contact'
 import { Photos } from './Photos/Photos'
+import { PageHeader } from '../PageHeader/PageHeader'
 
 interface CompanyDetailProps {
     company: TCompany
@@ -11,12 +12,17 @@ interface CompanyDetailProps {
 
 export const CompanyDetail = ({ company, contact }: CompanyDetailProps) => {
     return (
-        <div className={styles['company-detail']}>
-            <Info company={company} />
+        <>
+            <PageHeader company={company} />
+            <div className={styles['page__body']}>
+                <div className={styles['company-detail']}>
+                    <Info company={company} />
 
-            {contact && <Contact contact={contact} />}
+                    {contact && <Contact contact={contact} />}
 
-            <Photos company={company} />
-        </div>
+                    <Photos company={company} />
+                </div>
+            </div>
+        </>
     )
 }

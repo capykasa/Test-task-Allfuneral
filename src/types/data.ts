@@ -26,6 +26,8 @@ export type TCompany = {
     updatedAt: string
 }
 
+export type TCompanyPatch = Partial<TCompany>
+
 export type TContact = {
     id: string
     lastname: string

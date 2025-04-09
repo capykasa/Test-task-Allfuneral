@@ -7,38 +7,6 @@
     flex-direction: column;
     gap: 32px;
 
-    &__header {
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-
-        & .back-btn {
-            position: absolute;
-            left: -58px;
-        }
-
-        & .delete-btn {
-            & svg,
-            & path {
-                stroke: var(--red);
-            }
-        }
-
-        &-title {
-            font-weight: 500;
-            font-size: 28px;
-            line-height: 40px;
-            letter-spacing: 0.25px;
-        }
-
-        &-buttons {
-            margin-left: auto;
-            display: flex;
-            gap: 4px;
-        }
-    }
-
     &__body {
         display: flex;
         flex-direction: column;
