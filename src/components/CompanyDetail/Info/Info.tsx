@@ -18,7 +18,6 @@ export const Info = (props: InfoProps) => {
     const [company, setCompany] = useState<TCompany>(props.company)
     const [isEdit, setIsEdit] = useState(false)
     const [pending, setPending] = useState(false)
-
     const {
         control,
         register,
@@ -28,6 +27,7 @@ export const Info = (props: InfoProps) => {
         defaultValues: company,
     })
     const formValues = watch()
+
     const companyTypesValueView = reformattingCompanyTypesToView(formValues.type)
     const companyTypesView = reformattingCompanyTypesToView(COMPANY_TYPES)
 
