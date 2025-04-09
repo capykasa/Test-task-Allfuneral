@@ -40,5 +40,12 @@ export type TContactForm = {
     person: string
 } & TContact
 
+export type TContactPost = {
+    lastname: string
+    firstname: string
+    phone: number
+    email: string
+}
+
 
 export type RefformattingData = typeof refformattingInfoData | typeof refformattingContactData

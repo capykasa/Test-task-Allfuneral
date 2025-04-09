@@ -8,30 +8,14 @@ import { RefformattingData, TCompany, TContactForm } from '@/types/data'
 
 interface CheckChannelProps {
     isEdit: boolean
+    pending: boolean
     setIsEdit: Dispatcher<boolean>
     handleSubmit: UseFormHandleSubmit<TContactForm | TCompany>
-    refformattingData: Function
+    onSubmit: SubmitHandler<TContactForm | TCompany>
 }
 
-export const EditButton = ({ isEdit, setIsEdit, handleSubmit, refformattingData }: CheckChannelProps) => {
-    const [pending, setPending] = useState(false)
-
+export const EditButton = ({ isEdit, pending, setIsEdit, handleSubmit, onSubmit }: CheckChannelProps) => {
     const changeIsEdit = (flag: boolean) => setIsEdit(flag)
-
-    const onSubmit: SubmitHandler<TContactForm | TCompany> = async data => {
-        setPending(true)
-
-        refformattingData(data)
-
-        try {
-            console.log(data)
-            setIsEdit(false)
-        } catch {
-            console.log(data)
-        } finally {
-            setPending(false)
-        }
-    }
 
     return (
         <>

@@ -1,21 +1,22 @@
 import styles from '../CompanyDetail.module.scss'
 import { TContact, TContactForm } from '@/types/data'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useContext, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { refformattingContactData, reformattingStringToPhone } from '@/utility/reformattingDataFields'
 import { EditButton } from '../EditButton/EditButton'
+import { StoreContext } from '@/index'
 
 interface ContactsProps {
     contact: TContact
 }
 
-export const Contact = ({ contact }: ContactsProps) => {
+export const Contact = (props: ContactsProps) => {
+    const store = useContext(StoreContext)
+    const [contact, setContact] = useState<TContact>(props.contact)
     const [isEdit, setIsEdit] = useState(false)
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-    } = useForm<TContactForm>({
+    const [pending, setPending] = useState(false)
+
+    const { register, formState, handleSubmit } = useForm<TContactForm>({
         defaultValues: {
             ...contact,
             phone: reformattingStringToPhone(contact.phone),
@@ -23,15 +24,33 @@ export const Contact = ({ contact }: ContactsProps) => {
         },
     })
 
+    const updateContact: SubmitHandler<TContactForm> = async data => {
+        refformattingContactData(data)
+
+        setPending(true)
+        try {
+            await store.api.contacts
+                .update(localStorage.getItem('token'), data)
+                .then(result => setContact(result.data))
+                .catch(error => console.error(error.response.data.error))
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setPending(false)
+            setIsEdit(false)
+        }
+    }
+
     return (
         <div className={styles['detail-info']}>
             <div className={styles['detail-info__header']}>
                 <div className={styles['detail-info__header-title']}>Contacts</div>
                 <EditButton
                     isEdit={isEdit}
+                    pending={pending}
                     setIsEdit={setIsEdit}
                     handleSubmit={handleSubmit}
-                    refformattingData={refformattingContactData}
+                    onSubmit={updateContact}
                 />
             </div>
             <div className={`${styles['detail-info__body']}${isEdit ? ' form' : ''}`}>
@@ -44,7 +63,9 @@ export const Contact = ({ contact }: ContactsProps) => {
                     ) : (
                         <div className="form-item__input">
                             <input type="text" {...register('person')} />
-                            {errors.person && <span className="form-item__input-error">{errors.person?.message}</span>}
+                            {formState.errors.person && (
+                                <span className="form-item__input-error">{formState.errors.person?.message}</span>
+                            )}
                         </div>
                     )}
                 </div>
@@ -56,8 +77,18 @@ export const Contact = ({ contact }: ContactsProps) => {
                         </span>
                     ) : (
                         <div className="form-item__input">
-                            <input type="tel" {...register('phone')} />
-                            {errors.phone && <span className="form-item__input-error">{errors.phone?.message}</span>}
+                            <input
+                                type="tel"
+                                {...register('phone', {
+                                    pattern: {
+                                        value: /^\s*\+?\s*(\d\s*){11}$/i,
+                                        message: '* invalid phone number',
+                                    },
+                                })}
+                            />
+                            {formState.errors.phone && (
+                                <span className="form-item__input-error">{formState.errors.phone?.message}</span>
+                            )}
                         </div>
                     )}
                 </div>
@@ -76,11 +107,16 @@ export const Contact = ({ contact }: ContactsProps) => {
                                     },
                                 })}
                             />
-                            {errors.email && <span className="form-item__input-error">{errors.email?.message}</span>}
+                            {formState.errors.email && (
+                                <span className="form-item__input-error">{formState.errors.email?.message}</span>
+                            )}
                         </div>
                     )}
                 </div>
             </div>
         </div>
     )
+}
+function refformattingData(data: TContact) {
+    throw new Error('Function not implemented.')
 }

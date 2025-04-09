@@ -1,19 +1,24 @@
 import styles from '../CompanyDetail.module.scss'
 import { TCompany } from '@/types/data'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useContext, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { EditButton } from '../EditButton/EditButton'
 import { refformattingInfoData, reformattingCompanyTypesToView } from '@/utility/reformattingDataFields'
 import { BUSINESS_ENTITIES } from '@/consts/BusinessEntities'
 import { Select } from '../Select/Select'
 import { COMPANY_TYPES } from '@/consts/CompanyTypes'
+import { StoreContext } from '@/index'
 
 interface InfoProps {
     company: TCompany
 }
 
-export const Info = ({ company }: InfoProps) => {
+export const Info = (props: InfoProps) => {
+    const store = useContext(StoreContext)
+    const [company, setCompany] = useState<TCompany>(props.company)
     const [isEdit, setIsEdit] = useState(false)
+    const [pending, setPending] = useState(false)
+
     const {
         control,
         register,
@@ -28,15 +33,33 @@ export const Info = ({ company }: InfoProps) => {
 
     const cotractIssueDate = new Date(company.contract.issue_date)
 
+    const updateInfo: SubmitHandler<TCompany> = async (data) => {
+        refformattingInfoData(data)
+        
+        setPending(true)
+        try {
+            await store.api.companies.update(localStorage.getItem('token'), data)
+                .then(result => setCompany(result.data))
+                .catch(error => console.error(error.response.data.error))
+
+        } catch (error) {
+            console.error(error)
+        } finally {
+            setPending(false)
+            setIsEdit(false)
+        }
+    }
+
     return (
         <div className={styles['detail-info']}>
             <div className={styles['detail-info__header']}>
                 <div className={styles['detail-info__header-title']}>{company.name}</div>
                 <EditButton
                     isEdit={isEdit}
+                    pending={pending}
                     setIsEdit={setIsEdit}
                     handleSubmit={handleSubmit}
-                    refformattingData={refformattingInfoData}
+                    onSubmit={updateInfo}
                 />
             </div>
             <div className={`${styles['detail-info__body']}${isEdit ? ' form' : ''}`}>
@@ -74,7 +97,7 @@ export const Info = ({ company }: InfoProps) => {
                 <div className={`${styles['detail-info__body-item']} form-item`}>
                     <span className={styles['detail-info__body-item-name']}>Company type:</span>
                     {!isEdit ? (
-                        <span className={styles['detail-info__body-item-text']}>{company.type.join(', ')}</span>
+                        <span className={styles['detail-info__body-item-text']}>{companyTypesValueView.join(', ')}</span>
                     ) : (
                         <Select name="type" control={control} formValue={companyTypesValueView} options={companyTypesView} isMulti />
                     )}
@@ -83,3 +106,7 @@ export const Info = ({ company }: InfoProps) => {
         </div>
     )
 }
+function setPending(arg0: boolean) {
+    throw new Error('Function not implemented.')
+}
+

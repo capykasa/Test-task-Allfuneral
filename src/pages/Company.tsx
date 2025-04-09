@@ -19,7 +19,7 @@ const Company = observer(() => {
         if (company?.contactId) {
             store.api.contacts.get(localStorage.getItem('token'), company?.contactId)
                 .then(res => {
-                    if (res.status === 200 || res.data) {
+                    if (res.statusText === 'OK' || res.data) {
                         setContact(res.data)
                     }
                 })

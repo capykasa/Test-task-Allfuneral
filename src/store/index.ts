@@ -31,17 +31,13 @@ export default class Store {
     }
 
     async auth(username: string) {
-        if (localStorage.getItem('token')) {
-            this.setAuth(true)
-            return
-        }
-
         try {
             this.api.user.auth(username).then(res => {
                 if (res.status !== 200 || !res.headers.authorization) {
                     throw new Error('Auth error')
                 }
 
+                localStorage.clear()
                 localStorage.setItem('token', res.headers.authorization)
                 this.setAuth(true)
             })
@@ -50,11 +46,7 @@ export default class Store {
         }
     }
 
-    async getCompanies(username: string) {
-        if (!localStorage.getItem('token')) {
-            await this.auth(username)
-        }
-
+    async getCompanies() {
         try {
             this.api.companies.all(localStorage.getItem('token')).then(res => {
                 if (res.status !== 200 || !res.data) {

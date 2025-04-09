@@ -34,9 +34,17 @@ export function reformattingCompanyTypesToView(array: string[]): string[] {
     return reformattingArray
 }
 
+export function reformattingCompanyTypesToData(array: string[]): string[] {
+    let reformattingArray = array.map(item => {
+        item = item[0].toLowerCase() + item.slice(1)
+        return item.split(' ').join('_')
+    })
+
+    return reformattingArray
+}
+
 export function reformattingPhoneToString(phone: string): string {
-    const phoneArr = phone.split(' ')
-    phoneArr.shift()
+    const phoneArr = phone.replace('+', '').split(' ')
 
     return phoneArr.join('')
 }
@@ -57,6 +65,7 @@ export function refformattingContactData(data: TContactForm): TContact {
 }
 
 export function refformattingInfoData(data: TCompany): TCompany {
+    if (data.type) data.type = reformattingCompanyTypesToData(data.type)
 
     return data
 }
