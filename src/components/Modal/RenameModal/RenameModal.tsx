@@ -1,9 +1,8 @@
 import styles from '../Modal.module.scss'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Dispatcher } from '@/utility/types/Dispatcher'
 import { StoreContext } from '@/index'
-import { TCompany } from '@/types/data'
 
 interface RenameModalProps {
     isOpen: boolean
@@ -20,11 +19,24 @@ type FormData = {
 }
 
 export const RenameModal = ({ isOpen, setIsOpen, title, body, companyId, setCompanyName }: RenameModalProps) => {
+    const modalRef = useRef<HTMLDivElement>(null)
     const store = useContext(StoreContext)
     const [pending, setPending] = useState(false)
     const { register, handleSubmit } = useForm<FormData>({
         defaultValues: { name: body, id: companyId },
     })
+    
+    useEffect(() => {
+        const handleEscapeKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') setIsOpen(false)
+        }
+
+        window.addEventListener('keydown', handleEscapeKeyDown)
+
+        return () => {
+            window.removeEventListener('keydown', handleEscapeKeyDown)
+        }
+    }, [])
 
     const renameCompany: SubmitHandler<FormData> = async data => {
         setPending(true)
@@ -44,7 +56,7 @@ export const RenameModal = ({ isOpen, setIsOpen, title, body, companyId, setComp
         <>
             {isOpen && (
                 <div className={styles['modal-wrapper']}>
-                    <div className={styles.modal}>
+                    <div className={styles.modal} ref={modalRef}>
                         <div className={styles['modal-header']}>{title}</div>
                         <div className={`${styles['modal-body']} form`}>
                             <div className="form-item">

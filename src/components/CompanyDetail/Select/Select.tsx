@@ -23,17 +23,14 @@ export const Select = ({ name, control, formValue, options, isMulti = false }: S
     }
 
     useEffect(() => {
-        const handleClick = (event: MouseEvent) => {
-            const { target } = event
-            if (target instanceof Node && !rootRef.current?.contains(target) && isOpen) {
-                setIsOpen(false)
-            }
+        const handleEscapeKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') setIsOpen(false)
         }
 
-        window.addEventListener('click', handleClick)
+        window.addEventListener('keydown', handleEscapeKeyDown)
 
         return () => {
-            window.removeEventListener('click', handleClick)
+            window.removeEventListener('keydown', handleEscapeKeyDown)
         }
     }, [])
 
@@ -51,7 +48,9 @@ export const Select = ({ name, control, formValue, options, isMulti = false }: S
                         <ul className={styles['select-list']}>
                             {options.map(item => (
                                 <li
-                                    className={`${styles['select-list__item']} ${isMulti && styles['select-list__item--checkbox']}`}
+                                    className={`${styles['select-list__item']} ${
+                                        isMulti && styles['select-list__item--checkbox']
+                                    }`}
                                     key={item}
                                     value={item}
                                     onClick={() => {

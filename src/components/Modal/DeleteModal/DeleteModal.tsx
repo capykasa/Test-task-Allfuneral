@@ -1,5 +1,5 @@
 import styles from '../Modal.module.scss'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import { Dispatcher } from '@/utility/types/Dispatcher'
 import { StoreContext } from '@/index'
@@ -14,9 +14,22 @@ interface DeleteModalProps {
 }
 
 export const DeleteModal = ({ isOpen, setIsOpen, title, body, companyId }: DeleteModalProps) => {
+    const modalRef = useRef<HTMLDivElement>(null)
     const store = useContext(StoreContext)
     const navigate = useNavigate()
     const [pending, setPending] = useState(false)
+
+    useEffect(() => {
+        const handleEscapeKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') setIsOpen(false)
+        }
+
+        window.addEventListener('keydown', handleEscapeKeyDown)
+
+        return () => {
+            window.removeEventListener('keydown', handleEscapeKeyDown)
+        }
+    }, [])
 
     const deleteCompany: SubmitHandler<string> = async (data) => {
         setPending(true)
@@ -38,7 +51,7 @@ export const DeleteModal = ({ isOpen, setIsOpen, title, body, companyId }: Delet
         <>
             {isOpen && (
                 <div className={styles['modal-wrapper']}>
-                    <div className={styles.modal}>
+                    <div className={styles.modal} ref={modalRef}>
                         <div className={styles['modal-header']}>{title}</div>
                         <div className={`${styles['modal-body']} form`}>
                             <div className="form-item">
