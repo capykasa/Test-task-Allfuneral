@@ -10,11 +10,12 @@ export const App = observer(() => {
     const store = useContext(StoreContext)
 
     useEffect(() => {
-        ;(async function () {
-            await store.auth('USERNAME')
-            await store.getCompanies()
-        })()
+        store.auth('USERNAME')
     }, [])
+
+    useEffect(() => {
+        store.getCompanies()
+    }, [store.isAuth])
 
     return (
         <div className={styles.main}>

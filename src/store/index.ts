@@ -48,7 +48,7 @@ export default class Store {
 
     async getCompanies() {
         try {
-            this.api.companies.all(localStorage.getItem('token')).then(res => {
+            this.api.companies.all(localStorage.getItem('token'), '12').then(res => {
                 if (res.status !== 200 || !res.data) {
                     throw new Error('Get companies error')
                 }

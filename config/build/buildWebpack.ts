@@ -1,4 +1,3 @@
-import type { Configuration as DevServerConfiguration } from 'webpack-dev-server'
 import webpack from 'webpack'
 import { BuildOptions } from './types/types'
 import { buildLoaders } from './buildLoaders'
@@ -17,7 +16,6 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
         output: {
             path: paths.output,
             filename: '[name].[contenthash].js',
-            publicPath: '/',
             clean: true,
         },
         plugins: buildPlugins(options),
