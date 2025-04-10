@@ -8,6 +8,7 @@ import { BUSINESS_ENTITIES } from '@/consts/BusinessEntities'
 import { Select } from '../Select/Select'
 import { COMPANY_TYPES } from '@/consts/CompanyTypes'
 import { StoreContext } from '@/index'
+import { TOKEN_KEY } from '@/consts'
 
 interface InfoProps {
     company: TCompany
@@ -26,7 +27,7 @@ export const Info = (props: InfoProps) => {
     const companyTypesValueView = reformattingCompanyTypesToView(formValues.type)
     const companyTypesView = reformattingCompanyTypesToView(COMPANY_TYPES)
 
-    const cotractIssueDate = new Date(company.contract.issue_date)
+    const cotractIssueDate = new Date(formValues.contract.issue_date)
 
     const updateInfo: SubmitHandler<TCompany> = async data => {
         refformattingInfoData(data)
@@ -34,7 +35,7 @@ export const Info = (props: InfoProps) => {
         setPending(true)
         try {
             await store.api.companies
-                .update(localStorage.getItem('token'), data)
+                .update(localStorage.getItem(TOKEN_KEY), data)
                 .then(result => setCompany(result.data))
                 .catch(error => console.error(error.response.data.error))
         } catch (error) {

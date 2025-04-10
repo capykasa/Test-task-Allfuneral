@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { refformattingContactData, reformattingStringToPhone } from '@/utility/reformattingDataFields'
 import { EditButton } from '../EditButton/EditButton'
 import { StoreContext } from '@/index'
+import { TOKEN_KEY } from '@/consts'
 
 interface ContactsProps {
     contact: TContact
@@ -30,7 +31,7 @@ export const Contact = (props: ContactsProps) => {
         setPending(true)
         try {
             await store.api.contacts
-                .update(localStorage.getItem('token'), data)
+                .update(localStorage.getItem(TOKEN_KEY), data)
                 .then(result => setContact(result.data))
                 .catch(error => console.error(error.response.data.error))
         } catch (error) {

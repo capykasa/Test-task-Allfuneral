@@ -24,20 +24,22 @@ export const PageHeader = ({ company }: PageHeaderProps) => {
         <div className={styles['page-header']}>
             <BackButton />
             <h2 className={styles['page-header-title']}>{companyName}</h2>
-            <div className={styles['page-header-buttons']}>
-                <button
-                    className={`${styles['edit-btn']} btn btn--icon btn--transparent`}
-                    onClick={() => setModalRenameIsOpen(true)}
-                >
-                    <Pencil width={20} height={20} />
-                </button>
-                <button
-                    className={`${styles['delete-btn']} btn btn--icon btn--transparent`}
-                    onClick={() => setModalDeleteIsOpen(true)}
-                >
-                    <Trash width={20} height={20} />
-                </button>
-            </div>
+            {company && (
+                <div className={styles['page-header-buttons']}>
+                    <button
+                        className={`${styles['edit-btn']} btn btn--icon btn--transparent`}
+                        onClick={() => setModalRenameIsOpen(true)}
+                    >
+                        <Pencil width={20} height={20} />
+                    </button>
+                    <button
+                        className={`${styles['delete-btn']} btn btn--icon btn--transparent`}
+                        onClick={() => setModalDeleteIsOpen(true)}
+                    >
+                        <Trash width={20} height={20} />
+                    </button>
+                </div>
+            )}
 
             {company && (
                 <>

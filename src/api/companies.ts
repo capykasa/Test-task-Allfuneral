@@ -3,8 +3,8 @@ import { AxiosInstance } from 'axios'
 
 function createCompaniesApi(http: AxiosInstance) {
     return {
-        async all(token: string) {
-            return await http.get<TCompany>(`companies/${12}`, {
+        async all(token: string, id: string) {
+            return await http.get<TCompany>(`companies/${id}`, {
                 headers: {
                     Authorization: token,
                 },

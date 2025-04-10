@@ -10,17 +10,20 @@ export const App = observer(() => {
     const store = useContext(StoreContext)
 
     useEffect(() => {
-        ;(async function () {
-            await store.auth('USERNAME')
-            await store.getCompanies()
-        })()
+        store.auth('USERNAME')
     }, [])
+
+    useEffect(() => {
+        if (!store.isAuth) return
+
+        store.getCompanies()            
+    }, [store.isAuth])
 
     return (
         <div className={styles.main}>
             <TopBar />
             <Navigation />
-            {store.isLoading && store.isAuth ? <div className={styles['loading-block']}>Loading...</div> : <Page />}
+            {store.isLoading || !store.isAuth ? <div className={styles['loading-block']}>Loading...</div> : <Page />}
         </div>
     )
 })

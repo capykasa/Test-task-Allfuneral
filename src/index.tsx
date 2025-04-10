@@ -1,7 +1,7 @@
 import './styles/globals.scss'
 import { createRoot } from 'react-dom/client'
 import { App } from './components/App/App'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, HashRouter } from 'react-router-dom'
 import createHttpPlugin from './plugins/http'
 import createApi from './api'
 import Store from './store'
@@ -21,11 +21,11 @@ export const StoreContext = createContext<Store>(store)
 
 const container = createRoot(root)
 container.render(
-    <BrowserRouter>
+    <HashRouter>
         <StoreContext.Provider
             value={store}
         >
             {<App />}
         </StoreContext.Provider>
-    </BrowserRouter>
+    </HashRouter>
 )

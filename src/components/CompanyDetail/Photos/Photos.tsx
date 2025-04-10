@@ -2,6 +2,7 @@ import styles from '../CompanyDetail.module.scss'
 import AddPhoto from '@/assets/icons/add-photo.svg'
 import Trash from '@/assets/icons/trash.svg'
 import { GalleryModal } from '@/components/Modal/GalleryModal/GalleryModal'
+import { TOKEN_KEY } from '@/consts'
 import { StoreContext } from '@/index'
 import { TCompany, TCompanyPhoto } from '@/types/data'
 import { useContext, useRef, useState } from 'react'
@@ -28,7 +29,7 @@ export const Photos = ({ company }: PhotosProps) => {
         setPending(true)
         try {
             await store.api.gallery
-                .add(localStorage.getItem('token'), company.id, data)
+                .add(localStorage.getItem(TOKEN_KEY), company.id, data)
                 .then(result => setPhotos([...photos, result.data]))
                 .catch(error => console.error(error.response.data.error))
         } catch (error) {
@@ -42,7 +43,7 @@ export const Photos = ({ company }: PhotosProps) => {
     const deletePhoto: SubmitHandler<string> = async data => {
         setPending(true)
         try {
-            await store.api.gallery.delete(localStorage.getItem('token'), company.id, data)
+            await store.api.gallery.delete(localStorage.getItem(TOKEN_KEY), company.id, data)
                 .then(() => setPhotos(photos.filter(photo => photo.name !== data)))
                 .catch(error => console.error(error.response.data.error))
 

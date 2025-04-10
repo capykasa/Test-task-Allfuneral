@@ -11,6 +11,9 @@ const routes: RouteObject[] = [
         path: '/company/:id',
         Component: Company,
     },
+    {
+        path: '*',
+    },
 ]
 
 export default routes
