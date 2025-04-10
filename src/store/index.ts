@@ -1,6 +1,7 @@
 import { makeAutoObservable, configure } from 'mobx'
 import { TApiInstance } from '@/api'
 import { TCompany, TContact } from '@/types/data'
+import { TOKEN_KEY } from '@/consts'
 
 configure({
     useProxies: "never"
@@ -31,6 +32,7 @@ export default class Store {
     }
 
     async auth(username: string) {
+        this.setAuth(false)
         try {
             this.api.user.auth(username).then(res => {
                 if (res.status !== 200 || !res.headers.authorization) {
@@ -38,7 +40,7 @@ export default class Store {
                 }
 
                 localStorage.clear()
-                localStorage.setItem('token', res.headers.authorization)
+                localStorage.setItem(TOKEN_KEY, res.headers.authorization)
                 this.setAuth(true)
             })
         } catch (e) {
@@ -48,7 +50,7 @@ export default class Store {
 
     async getCompanies() {
         try {
-            this.api.companies.all(localStorage.getItem('token'), '12').then(res => {
+            this.api.companies.all(localStorage.getItem(TOKEN_KEY), '12').then(res => {
                 if (res.status !== 200 || !res.data) {
                     throw new Error('Get companies error')
                 }

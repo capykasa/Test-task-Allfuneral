@@ -5,13 +5,11 @@
 
     display: grid;
     grid-template-columns: auto 250px 1fr;
+    grid-template-rows: auto;
 
     @media (max-width: 992px) {
         grid-template-columns: 250px 1fr;
-
-        & .top-bar {
-            grid-area: span 2 / span 2;
-        }
+        grid-template-rows: min-content;
     }
 
     @media (max-width: 768px) {

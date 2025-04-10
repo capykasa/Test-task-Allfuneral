@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Dispatcher } from '@/utility/types/Dispatcher'
 import { StoreContext } from '@/index'
+import { TOKEN_KEY } from '@/consts'
 
 interface RenameModalProps {
     isOpen: boolean
@@ -41,7 +42,7 @@ export const RenameModal = ({ isOpen, setIsOpen, title, body, companyId, setComp
     const renameCompany: SubmitHandler<FormData> = async data => {
         setPending(true)
         try {
-            await store.api.companies.update(localStorage.getItem('token'), data)
+            await store.api.companies.update(localStorage.getItem(TOKEN_KEY), data)
                 .then(result => setCompanyName(result.data.name))
                 .catch(error => console.error(error.response.data.error))
 

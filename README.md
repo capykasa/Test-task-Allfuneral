@@ -2,7 +2,7 @@
 
 [ТЗ](https://test-task-api.allfuneral.com/) / [Макет](https://www.figma.com/design/IGQeCdz8lHMRz5m5xteLCr/AFS---Test-Assignment)
 
-[capykasa.github.io/Test-task-Allfuneral](https://capykasa.github.io/Test-task-Allfuneral/company/12)
+[capykasa.github.io/Test-task-Allfuneral](https://capykasa.github.io/Test-task-Allfuneral/#/company/12)
 
 ### Запуск проекта
 1. Установка зависимостей

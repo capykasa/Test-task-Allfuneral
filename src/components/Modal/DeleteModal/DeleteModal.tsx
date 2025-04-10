@@ -4,6 +4,7 @@ import { SubmitHandler } from 'react-hook-form'
 import { Dispatcher } from '@/utility/types/Dispatcher'
 import { StoreContext } from '@/index'
 import { useNavigate } from 'react-router-dom'
+import { TOKEN_KEY } from '@/consts'
 
 interface DeleteModalProps {
     isOpen: boolean
@@ -34,7 +35,7 @@ export const DeleteModal = ({ isOpen, setIsOpen, title, body, companyId }: Delet
     const deleteCompany: SubmitHandler<string> = async (data) => {
         setPending(true)
         try {
-            await store.api.companies.delete(localStorage.getItem('token'), data)
+            await store.api.companies.delete(localStorage.getItem(TOKEN_KEY), data)
                 .then(() => {
                     navigate('/')
                 })

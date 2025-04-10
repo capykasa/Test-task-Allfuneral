@@ -16,6 +16,7 @@ export function buildWebpack(options: BuildOptions): webpack.Configuration {
         output: {
             path: paths.output,
             filename: '[name].[contenthash].js',
+            publicPath: 'auto',
             clean: true,
         },
         plugins: buildPlugins(options),

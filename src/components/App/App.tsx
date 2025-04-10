@@ -14,14 +14,16 @@ export const App = observer(() => {
     }, [])
 
     useEffect(() => {
-        store.getCompanies()
+        if (!store.isAuth) return
+
+        store.getCompanies()            
     }, [store.isAuth])
 
     return (
         <div className={styles.main}>
             <TopBar />
             <Navigation />
-            {store.isLoading && store.isAuth ? <div className={styles['loading-block']}>Loading...</div> : <Page />}
+            {store.isLoading || !store.isAuth ? <div className={styles['loading-block']}>Loading...</div> : <Page />}
         </div>
     )
 })
